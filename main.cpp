@@ -1,3 +1,4 @@
+#include "ProjectResourceMonitor.h"
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include "FileContent.h"
@@ -7,6 +8,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
+    ProjectResources::install(engine);
     const QUrl url(u"qrc:/Calibration3D/Main.qml"_qs);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
         &app, []() { QCoreApplication::exit(-1); },
