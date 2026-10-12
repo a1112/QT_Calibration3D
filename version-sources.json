@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "units": {
+    "calibration-ui": {
+      "canonical": {
+        "path": "CMakeLists.txt",
+        "kind": "cmake-project",
+        "project": "Calibration3D"
+      },
+      "mirrors": [],
+      "reason": "Preserve the exact native CMake project version; Qt/QML module and SDK versions are independent."
+    }
+  },
+  "assertions": []
+}

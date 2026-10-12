@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "units": {},
+  "unmanaged": [
+    {
+      "name": "calibration-ui",
+      "reason": "Read-only native authority checked by scripts/check_version_sources.py. Preserve the exact native CMake project version; Qt/QML module and SDK versions are independent.",
+      "paths": [
+        "CMakeLists.txt"
+      ]
+    }
+  ],
+  "notes": [
+    "Existing version authorities and independent release units are preserved. This adoption does not assert that a manifest version has been released."
+  ]
+}
