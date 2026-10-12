@@ -1,11 +1,16 @@
 #include "ProjectResourceMonitor.h"
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "FileContent.h"
+#include "filecontent.h"
+#include <QQuickStyle>
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+#ifndef Q_OS_WIN
+    // The Windows style is native-only. Keep the existing Windows appearance.
+    QQuickStyle::setStyle(QStringLiteral("Fusion"));
+#endif
 
     QQmlApplicationEngine engine;
     ProjectResources::install(engine);

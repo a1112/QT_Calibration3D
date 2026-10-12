@@ -1,5 +1,5 @@
 import QtQuick
-import QtQuick.Controls.Windows
+import QtQuick.Controls
 import QtQuick.Window
 import "qml"
 import "qml/core"
