@@ -153,8 +153,11 @@ Item {
             let maxX=-Number.POSITIVE_INFINITY
             let maxY=-Number.POSITIVE_INFINITY
             fc.filename=fileName
-            fc.open()
-            pointModel.clear()
+            if (!fc.open()) {
+                core.showFileError(fc, qsTr("Could not read point data: ") + fileName)
+                return
+            }
+            let newPoints = []
             while (true){
             var line = fc.readLine()
                 console.log(fileName)
@@ -178,7 +181,7 @@ Item {
             if (line[2]>maxY){
                 maxY=line[2]
                 }
-            pointModel.append({
+            newPoints.push({
                                   "p_x":line[0],
                                   "p_y":line[1],
                                   "p_z":line[2],
@@ -188,6 +191,19 @@ Item {
                 break
              }
                }
+            fc.close()
+            if (!fc.lastOperationSucceeded) {
+                core.showFileError(fc, qsTr("Could not finish reading point data: ") + fileName)
+                return
+            }
+            pointModel.clear()
+            for (let i = 0; i < newPoints.length; i++)
+                pointModel.append(newPoints[i])
+            if (pointModel.count === 0) {
+                // An empty file is readable, but it has no bounding box.
+                global_box_x = global_box_y = global_box_w = global_box_h = 0
+                return
+            }
             global_box_x=minX
             global_box_y=minY
             global_box_w=maxX-minX

@@ -5,13 +5,24 @@ import QtQuick
 Item{
     id: content
 
-    property bool ready: false
+    readonly property bool ready: __fc__.lastOperationSucceeded
+    readonly property bool lastOperationSucceeded: __fc__.lastOperationSucceeded
+    readonly property string errorCode: __fc__.errorCode
+    readonly property string errorString: __fc__.errorString
     property alias filename: __fc__.filename
 
 
     FileContentItem{
         id:__fc__
     filename: ""   // default is craft.obj
+    }
+
+    function localFilePath(selection) {
+        return __fc__.localFilePath(selection.toString())
+    }
+
+    function close() {
+        __fc__.close()
     }
 
     function write(str){

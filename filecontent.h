@@ -8,28 +8,42 @@
 class FileContent : public QObject
 {
     Q_OBJECT
-public:
     Q_PROPERTY(QString content READ getContent)
-
     Q_PROPERTY(QString filename READ getFileName WRITE setFileName)
+    Q_PROPERTY(bool lastOperationSucceeded READ lastOperationSucceeded NOTIFY operationFinished)
+    Q_PROPERTY(QString errorCode READ errorCode NOTIFY operationFinished)
+    Q_PROPERTY(QString errorString READ errorString NOTIFY operationFinished)
+public:
+    explicit FileContent(QObject *parent = nullptr);
     Q_INVOKABLE QString getContent();
-    Q_INVOKABLE QString open();
-    Q_INVOKABLE QString getFileName();
-    Q_INVOKABLE QString readAll(QString);
-     Q_INVOKABLE void write(QString string);
-
-
+    Q_INVOKABLE bool open();
+    Q_INVOKABLE void close();
+    Q_INVOKABLE QString getFileName() const;
+    Q_INVOKABLE QString localFilePath(const QString &selection) const;
+    Q_INVOKABLE QString readAll(const QString &selection);
+    Q_INVOKABLE bool write(const QString &text);
     Q_INVOKABLE QString readLine(qint64 maxlen = 0);
-    FileContent(QObject *parent = 0);
-    ~FileContent();
+    bool lastOperationSucceeded() const { return succeeded; }
+    QString errorCode() const { return code; }
+    QString errorString() const { return message; }
+
+signals:
+    void operationFinished();
+
+public slots:
+    void setFileName(const QString &filename);
+    void clearContent();
+
 private:
-    QFile   *file;
-    QTextStream *in;
+    void success();
+    void failure(const QString &errorCode, const QString &errorString);
+    void fileFailure(const QFileDevice &device, const QString &path, bool writing = false);
+    QFile file;
+    QTextStream stream;
     QString content;
     QString filename;
-public slots:
-    void setFileName(const QString& filename);
-    void clearContent();
+    QString code;
+    QString message;
+    bool succeeded = false;
 };
-
-#endif // FILECONTENT_H
+#endif

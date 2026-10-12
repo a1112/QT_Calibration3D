@@ -37,13 +37,8 @@ FileDialog{
     nameFilters: ["txt files (*.txt)"]
     onAccepted: {
 
-        for (let i in selectedFiles){
-            var baseArgs = core.getBaseArgs()
-            baseArgs["fileName"] = (""+selectedFiles[i]).substring(8)
-            core.mainModel.append(
-                        baseArgs
-                        )
-        }
+        for (let i = 0; i < selectedFiles.length; i++)
+            core.addPointFile(selectedFiles[i])
     }
 
 }
@@ -51,6 +46,11 @@ Column{
     BaseLabel{
         font.pixelSize: 10
         text: qsTr("配置文件：")+core.configFileName
+        color: "#000"
+    }
+
+    BaseLabel {
+        text: core.statusMessage
         color: "#000"
     }
 

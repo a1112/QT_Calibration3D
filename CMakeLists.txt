@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 
 project(Calibration3D VERSION 0.1 LANGUAGES CXX)
 
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # ColorDialog and QQmlApplicationEngine::objectCreationFailed require Qt 6.4.
@@ -22,7 +23,7 @@ qt_add_qml_module(appCalibration3D
     QML_FILES qml/DataViewItem.qml
     SOURCES filecontent.h filecontent.cpp
     QML_FILES qml/core/FileContentTool.qml
-    QML_FILES qml/core/Core.qml
+    QML_FILES qml/core/Core.qml qml/core/ConfigFile.js
     QML_FILES qml/DataListView.qml
     QML_FILES qml/DataListViewItem.qml
     QML_FILES qml/Labels/BaseLabel.qml qml/Labels/FontGrade.qml

@@ -36,7 +36,7 @@ Item{
     ColumnLayout{
         anchors.fill: parent
     BaseLabel{
-        text: (""+fileName).substring(8,100)
+        text: fileName
     }
 AdjustView{
 

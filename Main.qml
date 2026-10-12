@@ -13,24 +13,12 @@ ApplicationWindow {
 
 
     }
-    FileContentTool{
-        id:fc
-    }
-    Component.onCompleted: {
-        fc.open()
-    }
-
     DropArea{
         anchors.fill: parent
         onDropped:{
             if(drop.hasUrls){
-                for (let i in drop.urls){
-                    var baseArgs = core.getBaseArgs()
-                    baseArgs["fileName"] = (""+drop.urls[i]).substring(8)
-                    core.mainModel.append(
-                                baseArgs
-                                )
-                }
+                for (let i = 0; i < drop.urls.length; i++)
+                    core.addPointFile(drop.urls[i])
 
             }
                   }
