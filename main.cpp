@@ -6,6 +6,8 @@
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+    app.setOrganizationName(QStringLiteral("a1112"));
+    app.setApplicationName(QStringLiteral("Calibration3D"));
 
     QQmlApplicationEngine engine;
     ProjectResources::install(engine);
